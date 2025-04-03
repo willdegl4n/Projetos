@@ -1,4 +1,9 @@
 # Projeto Vendas Carros - ETL com Python
+- [x] Criar os arquivos de Extração
+- [x] Criar os dataframes e salvar como arquivos
+- [ ] Manipular os DFs inserindo dados não existentes
+- [ ] Manipular dados ja exitentes
+
 ### Foi criado um script para gerar de forma aleatoria, dados de vendas de veiculos para algumas UFs 
 * gerardados.py
 ```
@@ -87,6 +92,11 @@ for sheet in xls.sheet_names:
 
 print("Arquivos Parquet gerados com sucesso!")
 ```
+
+![image](https://github.com/user-attachments/assets/7f7e404d-7956-4866-b347-ad9aacb098b1)
+
+
+
 
 contruindo...
 
