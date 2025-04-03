@@ -10,21 +10,31 @@ arquivos_parquet
 #%% Dicionário para armazenar os DataFrames
 dataframes = {}
 
+#%% Mapeamento de siglas para nomes completos dos estados
+ufs_completos = {
+    "AC": "Acre", "AL": "Alagoas", "AM": "Amazonas", "AP": "Amapá", "BA": "Bahia",
+    "CE": "Ceará", "DF": "Distrito Federal", "ES": "Espírito Santo", "GO": "Goiás",
+    "MA": "Maranhão", "MG": "Minas Gerais", "MS": "Mato Grosso do Sul", "MT": "Mato Grosso",
+    "PA": "Pará", "PB": "Paraíba", "PE": "Pernambuco", "PI": "Piauí", "PR": "Paraná",
+    "RJ": "Rio de Janeiro", "RN": "Rio Grande do Norte", "RO": "Rondônia", "RR": "Roraima",
+    "RS": "Rio Grande do Sul", "SC": "Santa Catarina", "SE": "Sergipe", "SP": "São Paulo",
+    "TO": "Tocantins"
+}
+
 #%% Carregar cada arquivo .parquet em um DataFrame
 for arquivo in arquivos_parquet:
     # Extrai o nome da UF do arquivo (ex: "SP.parquet" -> "SP")
     uf = arquivo.replace(".parquet", "")
+ 
+    # Lê o arquivo Parquet e adiciona a coluna "UF"
+    df = pd.read_parquet(arquivo)
+    df["UF"] = ufs_completos.get(uf, uf)  # Usa o nome completo ou mantém a sigla
+    
+    # Armazena no dicionário
+    dataframes[uf] = df
 
-    # Lê o arquivo Parquet e armazena no dicionário
-    dataframes[uf] = pd.read_parquet(arquivo)
+    print(f"Arquivo '{arquivo}' carregado com sucesso!")
 
-    print(f"Arquivo '{arquivo}' carregado para DataFrame com sucesso!")
+print()
+print("Os arquivos .parquet foram carregados e estão prontos para ser manipulados!")
 
-print("Todos os arquivos .parquet foram carregados!")
-
-#%% acessando os dataframes
-sp = dataframes["SP"]  # DataFrame de São Paulo
-sp
-#%%
-rj = dataframes["RJ"]  # DataFrame do Rio de Janeiro
-rj
